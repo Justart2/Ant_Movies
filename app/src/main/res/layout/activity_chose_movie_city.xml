@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+  >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#5FB9E4"
+        >
+        <TextView
+            android:id="@+id/text_city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:text="兰州"
+            android:clickable="true"
+            android:onClick="toChoseCity"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/cinema_icon_arrow_content_down"
+            android:layout_toRightOf="@id/text_city_name"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择影院"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000"/>
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:onClick="exitChoseMovieCity"
+            android:src="@drawable/cinema_icon_content_comment_cancle_n"
+            />
+    </RelativeLayout>
+    <com.yalantis.phoenix.PullToRefreshView
+        android:id="@+id/pull_to_refresh_movie_city"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/list_movie_city"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp" />
+
+    </com.yalantis.phoenix.PullToRefreshView>
+</LinearLayout>

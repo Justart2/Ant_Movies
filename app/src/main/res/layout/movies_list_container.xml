@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    >
+
+    <ImageView
+        android:id="@+id/imageView_movie_img"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentTop="true"
+
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/textView_movie_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="版本"
+        android:layout_marginLeft="1dp"
+        android:layout_toRightOf="@+id/imageView_movie_img"
+        android:layout_marginTop="43dp" />
+
+    <TextView
+        android:id="@+id/textView_movie_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@+id/imageView_movie_img"
+        android:text="类型" />
+
+    <TextView
+        android:id="@+id/textView_movie_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textColor="#FF4400"
+        android:layout_toRightOf="@+id/imageView_movie_img"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:text="电影名" />
+
+    <TextView
+        android:id="@+id/ratingBar_movie_rank"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/movie_rate"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="4级"
+         />
+
+    <TextView
+        android:id="@+id/textView_movie_time"
+        android:layout_width="80dp"
+        android:layout_height="25dp"
+        android:background="#F48D50"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:textColor="#fff"
+        android:text="选座购票"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#888"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

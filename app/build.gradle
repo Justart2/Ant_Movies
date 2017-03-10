@@ -1,0 +1,33 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+    defaultConfig {
+        applicationId "top.aezdd.www.ant_movies"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile project(':sweet-alert-dialog-library')
+    compile project(':Phoenix-master')
+    compile files('libs/volley.jar')
+    compile files('libs/httpmime-4.2.5.jar')
+    compile files('libs/json.jar')
+    compile files('libs/xUtils-2.6.14.jar')
+    compile files('libs/smscaptcha_v_1_4.jar')
+}
