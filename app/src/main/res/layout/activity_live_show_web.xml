@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_live_show_web"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ant_movie_video_window"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorTheme"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-5dp"
+                android:onClick="exitActivity"
+                android:padding="10dp"
+                android:src="@drawable/cinema_icon_back_p" />
+
+            <TextView
+                android:id="@+id/text_movie_detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Ant 直播浏览器"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/live_video_bg3"
+            android:gravity="center_vertical">
+            <!--<com.tencent.smtt.sdk.WebView
+                android:id="@+id/ant_live_show_web_view"
+                android:windowIsTranslucent="false"
+                android:background="#000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.tencent.smtt.sdk.WebView>-->
+            <top.aezdd.www.view.VideoEnabledWebView
+                android:id="@+id/ant_live_show_web_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/ant_movie_video_all_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#000000"></FrameLayout>
+</RelativeLayout>
+

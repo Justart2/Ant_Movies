@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
-                android:text="排期"
+                android:text="视频"
                 android:textColor="#222"
                 android:textSize="10sp"/>
         </LinearLayout>
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
-                android:text="娱乐"
+                android:text="新闻"
                 android:textColor="#222"
                 android:textSize="10sp"/>
         </LinearLayout>

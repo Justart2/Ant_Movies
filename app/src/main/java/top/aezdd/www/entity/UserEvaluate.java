@@ -11,7 +11,7 @@ public class UserEvaluate {
 
     private String eInfo;
 
-    private Date eTime;
+    private String eTime;
     
     private User user;
     
@@ -65,11 +65,11 @@ public class UserEvaluate {
         this.eInfo = eInfo == null ? null : eInfo.trim();
     }
 
-    public Date geteTime() {
+    public String geteTime() {
         return eTime;
     }
 
-    public void seteTime(Date eTime) {
+    public void seteTime(String eTime) {
         this.eTime = eTime;
     }
 }

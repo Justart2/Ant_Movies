@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_user_info"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <!-- 标题栏 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorTheme"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:layout_marginLeft="-5dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/cinema_icon_back_p"
+            android:onClick="exitActivity"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="#fff"
+            android:text="我的资料"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    <!-- 用户头像 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:clickable="true"
+        android:onClick="changeImage"
+        android:layout_height="60dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="Ant 头像"/>
+        <top.aezdd.www.view.CircleImageView
+            android:id="@+id/user_info_img"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            app:border_color="@color/colorTheme"
+            app:border_width="1dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ant_logo"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/cinema_icon_right_arrow_n"/>
+    </LinearLayout>
+    <!-- 分割线 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"/>
+    <!-- 用户名 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:clickable="true"
+        android:onClick="changeName"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="Ant 会员名"/>
+        <TextView
+            android:id="@+id/user_info_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:textStyle="bold"
+            android:text="盲目街头"
+            />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/cinema_icon_right_arrow_n"/>
+    </LinearLayout>
+    <!-- 分割线 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"/>
+    <!-- 电话号码 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:clickable="true"
+        android:onClick="changePhone"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="电话号码"/>
+        <TextView
+            android:id="@+id/user_info_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="15117088744"
+            />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/cinema_icon_right_arrow_n"/>
+    </LinearLayout>
+    <!-- 分割线 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"/>
+    <!-- 邮箱地址 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:clickable="true"
+        android:onClick="changeEmail"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="邮箱地址"/>
+        <TextView
+            android:id="@+id/user_info_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="jianzhou.liu@transsion.com"
+            />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/cinema_icon_right_arrow_n"/>
+    </LinearLayout>
+    <!-- 分割线 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"/>
+</LinearLayout>

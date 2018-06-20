@@ -26,7 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 import top.aezdd.www.entity.MovieShow;
-import top.aezdd.www.utils.UserUtils;
+import top.aezdd.www.entity.User;
+import top.aezdd.www.utils.LoginUtil;
 
 public class ChoseSeatActivity extends Activity {
     private SharedPreferences s;
@@ -34,6 +35,7 @@ public class ChoseSeatActivity extends Activity {
     List<String> seatTemp = new ArrayList<>();
     Map<Integer,String> map = null;
     List<String> list = new ArrayList<String>();
+    private User user;
     @ViewInject(R.id.chose_seat_a_movie_show_name)TextView movieName;
     @ViewInject(R.id.chose_seat_movie_show_time)TextView movieSHowTime;
     @ViewInject(R.id.chose_seat_movie_show_city_hall)TextView movieCityHall;
@@ -60,7 +62,7 @@ public class ChoseSeatActivity extends Activity {
         movieCityHall.setText(s.getString("movie_city_name","")+" "+movieShow.getMoviehall().gethName());
         getSeatInfo();
         movieGridView.setAdapter(new SeatGridViewAdapter());
-        Toast.makeText(ChoseSeatActivity.this, list.size()+"", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(ChoseSeatActivity.this, list.size()+"", Toast.LENGTH_SHORT).show();
     }
     public void getSeatInfo(){
         String str = movieShow.getMoviehall().gethSeat();
@@ -112,7 +114,8 @@ public class ChoseSeatActivity extends Activity {
                             seatTemp.add(position / 19 + ":" + position % 19);
                         } else if (map.get(position) == null) {
                             if (seatTemp.size() == 6) {
-                                Toast.makeText(ChoseSeatActivity.this, "您最多只能选6个座位", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ChoseSeatActivity.this, "您最多只能选6个座位", Toast.LENGTH_SHORT)
+                                        .show();
                                 return;
                             }
                             int i = 0;
@@ -127,7 +130,8 @@ public class ChoseSeatActivity extends Activity {
                                 map.put(position, position / 19 + ":" + position % 19 + ":" + 1);
                             } else {
                                 if (seatTemp.size() == 6) {
-                                    Toast.makeText(ChoseSeatActivity.this, "您最多只能选6个座位", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ChoseSeatActivity.this, "您最多只能选6个座位", Toast.LENGTH_SHORT)
+                                            .show();
                                     return;
                                 }
                                 imageView.setImageResource(R.drawable.cinema_seat_selected_small);
@@ -147,7 +151,7 @@ public class ChoseSeatActivity extends Activity {
                             if (i == 3) {
                                 ss += "\n";
                             }
-                            ss += "【" + (Integer.parseInt(seatTemp.get(i).split(":")[0]) + 1) + "排，" + (Integer.parseInt(seatTemp.get(i).split(":")[1]) + 1) + "列】";
+                            ss += "【" + (Integer.parseInt(seatTemp.get(i).split(":")[0]) + 1) + "排，" + (Integer.parseInt(seatTemp.get(i).split(":")[1]) + 1) + "座】";
                         }
                         movieChosedSeat.setText(ss);
 
@@ -160,11 +164,28 @@ public class ChoseSeatActivity extends Activity {
     }
 
     public void toNextOrder(View v){
-        Intent intent = new Intent();
-        intent.setClass(this,OrderActivity.class);
-        intent.putExtra("a_movie_show_info", movieShow);
-        intent.putExtra("a_movie_show_seat",(Serializable)seatTemp);
-        startActivity(intent);
+        if(checkUserLogined()){
+            Intent intent = new Intent();
+            intent.setClass(this,OrderActivity.class);
+            intent.putExtra("a_movie_show_info", movieShow);
+            intent.putExtra("a_movie_show_seat",(Serializable)seatTemp);
+            startActivity(intent);
+        }else{
+            //去登陆
+            LoginUtil.toLogin(this);
+        }
+
+    }
+    /*验证用户是否已登录*/
+    public boolean checkUserLogined(){
+        SharedPreferences s = getSharedPreferences("ant_user_info",MODE_PRIVATE);
+        String userPhone = s.getString("user_phone","null");
+        //Log.e("sssss_user_info------>",userPhone);
+        if(userPhone.equals("null")){
+            return false;
+        }else{
+            return true;
+        }
     }
     public void exitActivity(View v){
         finish();

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:paddingLeft="15dp"
+            android:id="@+id/city_pinyin_type"
+            android:layout_width="match_parent"
+            android:background="#aaa"
+            android:gravity="center_vertical"
+            android:layout_height="20dp"
+            android:text="A"/>
+        <top.aezdd.www.view.MyGridView
+            android:id="@+id/city_grid_item_id"
+            android:layout_width="match_parent"
+            android:background="#fff"
+            android:columnWidth="2dp"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
+            android:numColumns="4">
+
+        </top.aezdd.www.view.MyGridView>
+    </LinearLayout>
+</LinearLayout>

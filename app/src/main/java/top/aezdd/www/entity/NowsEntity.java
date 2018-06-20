@@ -8,8 +8,7 @@ public class NowsEntity {
 	private String thumbnail_pic_s02;
 	private String thumbnail_pic_s03;
 	private String url;
-	private String type;
-	private String realtype;
+	private String category;
 	public String getTitle() {
 		return title;
 	}
@@ -52,17 +51,12 @@ public class NowsEntity {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public String getType() {
-		return type;
+
+	public String getCategory() {
+		return category;
 	}
-	public void setType(String type) {
-		this.type = type;
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
-	public String getRealtype() {
-		return realtype;
-	}
-	public void setRealtype(String realtype) {
-		this.realtype = realtype;
-	}
-	
 }

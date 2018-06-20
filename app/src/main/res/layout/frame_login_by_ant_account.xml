@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="3dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp">
+        <TextView
+            android:id="@+id/account_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textColor="#000"
+            android:text="账号"/>
+
+        <TextView
+            android:id="@+id/rule_trans"
+            android:layout_width="match_parent"
+            android:layout_below="@id/account_label"
+            android:layout_alignLeft="@id/account_label"
+            android:layout_marginLeft="7dp"
+            android:layout_height="1dp"
+            android:background="#ccc"/>
+        <TextView
+            android:id="@+id/password_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rule_trans"
+            android:padding="15dp"
+            android:textColor="#000"
+            android:text="密码"/>
+
+        <EditText
+            android:id="@+id/login_user_account_input"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:background="@null"
+            android:padding="8dp"
+            android:hint="请输入手机号"
+            android:textColorHint="#aaa"
+            android:inputType="number"
+            android:textSize="15sp"
+            android:textCursorDrawable="@null"
+            android:gravity="center_vertical"
+            android:layout_alignBaseline="@+id/account_label"
+            android:layout_alignBottom="@+id/account_label"
+            android:layout_toRightOf="@+id/account_label"
+            android:layout_toEndOf="@+id/account_label" />
+
+        <EditText
+            android:id="@+id/login_user_psw_input"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textCursorDrawable="@null"
+            android:background="@null"
+            android:padding="10dp"
+            android:textSize="15sp"
+            android:hint="请输入密码"
+            android:textColorHint="#aaa"
+            android:inputType="textPassword"
+            android:gravity="center_vertical"
+            android:layout_alignBaseline="@+id/password_label"
+            android:layout_alignBottom="@+id/password_label"
+            android:layout_toRightOf="@+id/password_label"
+            android:layout_toEndOf="@+id/password_label" />
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"/>
+    <Button
+        android:id="@+id/login_ant_account_btn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="25dp"
+        android:text="登录"
+        android:textColor="#ccc"
+        android:background="@drawable/style_login_type_button"/>
+</LinearLayout>

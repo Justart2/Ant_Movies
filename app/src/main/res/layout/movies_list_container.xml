@@ -6,13 +6,14 @@
 
     <ImageView
         android:id="@+id/imageView_movie_img"
-        android:layout_width="90dp"
+        android:layout_width="70dp"
         android:layout_height="90dp"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_alignParentTop="true"
-
-        android:src="@drawable/ic_launcher" />
+         />
 
     <TextView
         android:id="@+id/textView_movie_version"
@@ -37,43 +38,58 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:textColor="#FF4400"
+        android:textColor="@color/colorTheme"
         android:layout_toRightOf="@+id/imageView_movie_img"
         android:textSize="20sp"
         android:layout_marginTop="5dp"
         android:text="电影名" />
 
-    <TextView
-        android:id="@+id/ratingBar_movie_rank"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/movie_rate"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="25dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:text="4级"
-         />
 
-    <TextView
-        android:id="@+id/textView_movie_time"
-        android:layout_width="80dp"
-        android:layout_height="25dp"
-        android:background="#F48D50"
-        android:gravity="center"
-        android:layout_margin="10dp"
-        android:textColor="#fff"
-        android:text="选座购票"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-         />
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/movie_like_rate_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/cinema_icon_like_40"
+            />
+        <TextView
+            android:id="@+id/movie_like_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="75% 人喜欢"
+            android:layout_marginTop="2dp"
+            android:textStyle="italic"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#000"
+            android:textSize="11sp"
+             />
+        <TextView
+            android:id="@+id/to_movie_show_btn"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:background="@color/colorTheme"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@drawable/selector_login_type_btn"
+            android:clickable="true"
+            android:text="选座购票"
+            />
+    </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#888"
+        android:background="#aaa"
         android:layout_alignParentBottom="true"/>
+
+
 </RelativeLayout>

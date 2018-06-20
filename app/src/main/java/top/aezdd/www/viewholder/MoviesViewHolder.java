@@ -3,11 +3,14 @@ package top.aezdd.www.viewholder;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by aezdd on 2016/8/18.
  */
 public class MoviesViewHolder {
     private ImageView movieLogo;
+    private ImageView movieRateIcon;
     private TextView movieName;
     private TextView movieDesc;
     private TextView movieType;
@@ -20,6 +23,23 @@ public class MoviesViewHolder {
     private TextView movieReleaseTime;
     private TextView moviePrice;
     private ImageView[] moviePictures;
+    private TextView MovieClickBtn;
+
+    public TextView getMovieClickBtn() {
+        return MovieClickBtn;
+    }
+
+    public void setMovieClickBtn(TextView movieClickBtn) {
+        MovieClickBtn = movieClickBtn;
+    }
+
+    public ImageView getMovieRateIcon() {
+        return movieRateIcon;
+    }
+
+    public void setMovieRateIcon(ImageView movieRateIcon) {
+        this.movieRateIcon = movieRateIcon;
+    }
 
     public ImageView[] getMoviePictures() {
         return moviePictures;

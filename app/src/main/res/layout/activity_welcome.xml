@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_welcome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ant_movie_welcome_bg2">
+    <ImageView
+        android:id="@+id/welcome_app_message"
+        android:layout_width="wrap_content"
+        android:layout_height="80px"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ant_movie_welcome_message" />
+
+    <TextView
+        android:id="@+id/welcome_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/welcome_app_message"
+        android:layout_centerHorizontal="true"
+        android:text="Ant 影视城"
+        android:textColor="#CCC"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/dialog_background"
+        android:layout_above="@id/welcome_app_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ant_logo" />
+
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:text="Copyright© 2016-2017 Ant. All Rights Reserved"
+        android:textColor="#bbb"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:text="Version 1.0.0"
+        android:textColor="#ccc"
+        android:textSize="13sp" />
+</RelativeLayout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="15dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <TextView
+        android:id="@+id/ant_live_video_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="15dp"
+        android:text="04-21 16:34"
+        android:textColor="#555"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/style_ant_movie_video_list_view_item"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ant_live_index_item_whole_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:paddingTop="5dp"
+            android:text="面覅是干啥、佛挡杀佛"
+            android:textColor="@color/colorTheme"
+            android:textSize="18sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp">
+
+            <ImageView
+                android:id="@+id/ant_live_index_item_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ant_live1" />
+
+            <ImageView
+                android:id="@+id/ant_live_index_item_image_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:alpha="0.7"
+                android:src="@drawable/gc_sport_video_icon" />
+
+            <TextView
+                android:id="@+id/ant_live_index_item_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/ant_live_index_item_image"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="5dp"
+                android:paddingRight="10dp"
+                android:text="3:45"
+                android:textColor="#fff"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/ant_live_index_item_sample_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ant_user_info_icon" />
+
+            <TextView
+                android:id="@+id/ant_live_index_sample_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="陈翔六点半"
+                android:singleLine="true"
+                android:textColor="#555"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/ant_live_index_item_online_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/gc_sport_video_icon" />
+
+            <TextView
+                android:id="@+id/ant_live_index_item_online"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="2345"
+                android:textColor="#555"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

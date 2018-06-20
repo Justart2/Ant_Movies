@@ -64,7 +64,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     public static final int PROGRESS_TYPE = 5;
 
     public static interface OnSweetClickListener {
-        public void onClick (SweetAlertDialog sweetAlertDialog);
+        public void onClick(SweetAlertDialog sweetAlertDialog);
     }
 
     public SweetAlertDialog(Context context) {

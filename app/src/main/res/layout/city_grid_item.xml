@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/city_grid_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        android:padding="5dp"
+        android:clickable="true"
+        android:textColor="@drawable/selector_city_grid_text_color"
+        android:background="@drawable/style_city_grid_view_item"
+        android:gravity="center"
+        android:text="上海"/>
+
+</LinearLayout>

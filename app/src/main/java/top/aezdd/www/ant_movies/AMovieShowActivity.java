@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.MessageQueue;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,15 +35,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import top.aezdd.www.adapter.MovieShowAdapter;
 import top.aezdd.www.entity.Movie;
 import top.aezdd.www.entity.MovieCity;
 import top.aezdd.www.entity.MovieHall;
 import top.aezdd.www.entity.MovieShow;
-import top.aezdd.www.entity.User;
-import top.aezdd.www.utils.UserUtils;
-import top.aezdd.www.utils.httpUtils.HttpUtil;
+import top.aezdd.www.utils.OtherUtils;
+import top.aezdd.www.utils.HttpUtil;
 import top.aezdd.www.viewholder.MovieShowViewHolder;
-import top.aezdd.www.viewholder.MoviesViewHolder;
 
 public class AMovieShowActivity extends Activity {
     /*
@@ -57,10 +55,10 @@ public class AMovieShowActivity extends Activity {
     @ViewInject(R.id.a_movie_pull_to_refresh)
     PullToRefreshView mPullToRefreshView;
     @ViewInject(R.id.a_movie_show_list)
-    ListView aMovieShowList;
+    ListView aMovieShowListView;
     Movie movie;
     SharedPreferences s = null;
-    private List<MovieShow> aMovieShowData = new ArrayList<>();
+    private List<MovieShow> aMovieShowData ;
     RequestQueue queue;
 
     @Override
@@ -74,14 +72,7 @@ public class AMovieShowActivity extends Activity {
 
         Intent intent = getIntent();
         movie = (Movie) intent.getSerializableExtra("a_movie_info");
-        /*获取存在Sharedpreference中的影院信息*/
-        s = getSharedPreferences("ant_movies_city",MODE_PRIVATE);
 
-        textAMovieShowName.setText(movie.getmName());
-        textAMovieShowCity.setText(s.getString("movie_city_name",""));
-        textAMovieShowAddress.setText(s.getString("movie_city_address",""));
-        todayTime.setText(UserUtils.getCourrentTime()+"  今天");
-        getHttpData();
         mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -97,78 +88,44 @@ public class AMovieShowActivity extends Activity {
         });
     }
 
-    /*
-    * 设置listview适配器
-    * */
-    class MovieShowAdapter extends BaseAdapter{
-        List<MovieShow> list;
-        public MovieShowAdapter(List<MovieShow> list){
-            this.list = list;
-        }
-        @Override
-        public int getCount() {
-            return list.size();
-        }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        /*获取存在Sharedpreference中的影院信息*/
+        s = getSharedPreferences("ant_movies_city",MODE_PRIVATE);
 
-        @Override
-        public Object getItem(int position) {
-            return list.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            MovieShowViewHolder movieShowViewHolder;
-            if(convertView==null){
-                convertView = getLayoutInflater().inflate(R.layout.layout_movie_show_item,parent,false);
-                movieShowViewHolder = new MovieShowViewHolder();
-                movieShowViewHolder.setMovieShowCountry((TextView)convertView.findViewById(R.id.text_a_movie_show_country));
-                movieShowViewHolder.setMovieShowDiscount((TextView) convertView.findViewById(R.id.text_a_movie_show_discount));
-                movieShowViewHolder.setMovieShowHall((TextView) convertView.findViewById(R.id.text_a_movie_show_hall));
-                movieShowViewHolder.setMovieShowprice((TextView) convertView.findViewById(R.id.text_a_movie_show_price));
-                movieShowViewHolder.setMovieShowTime((TextView) convertView.findViewById(R.id.text_a_movie_show_time));
-                movieShowViewHolder.setMovieShowTimeLength((TextView) convertView.findViewById(R.id.text_a_movie_show_time_length));
-                movieShowViewHolder.setMovieShowVersion((TextView) convertView.findViewById(R.id.text_a_movie_show_version));
-                convertView.setTag(movieShowViewHolder);
+        textAMovieShowName.setText(movie.getmName());
+        textAMovieShowCity.setText(s.getString("movie_city_name",""));
+        textAMovieShowAddress.setText(s.getString("movie_city_address",""));
+        todayTime.setText(OtherUtils.getCourrentTime()+"  今天");
+        getHttpData();
+        aMovieShowListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setClass(AMovieShowActivity.this, ChoseSeatActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("a_movie_show_for_chose_seat",aMovieShowData.get(position));
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
-            movieShowViewHolder = (MovieShowViewHolder)convertView.getTag();
-            if(list.get(position).getsOnSale()==0){
-                movieShowViewHolder.getMovieShowDiscount().setText("暂无");
-            }else{
-                movieShowViewHolder.getMovieShowDiscount().setText("全场"+list.get(position).getsOnSale()+"折");
-            }
-            movieShowViewHolder.getMovieShowHall().setText(list.get(position).getMoviehall().gethName());
-            movieShowViewHolder.getMovieShowTime().setText(new SimpleDateFormat("HH:mm").format(new Date(list.get(position).getsTime())));
-            movieShowViewHolder.getMovieShowprice().setText("￥" + list.get(position).getMovie().getmPrice());
-            movieShowViewHolder.getMovieShowTimeLength().setText(list.get(position).getMovie().getmTimeLength());
-            movieShowViewHolder.getMovieShowVersion().setText(list.get(position).getMovie().getmVersion());
-            movieShowViewHolder.getMovieShowCountry().setText(list.get(position).getMovie().getmCountry());
-            aMovieShowList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent();
-                    intent.setClass(AMovieShowActivity.this, ChoseSeatActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("a_movie_show_for_chose_seat",list.get(position));
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }
-            });
-            return convertView;
-        }
+        });
     }
+
+    /*
+        * 设置listview适配器
+        * */
+
     /**
      * 加载网络数据
      */
     public void getHttpData() {
+
         String url = HttpUtil.HttpUrl + "/movieshow/a-movie-show-android.do";
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String result) {
+                aMovieShowData = new ArrayList<>();
                 try {
                     JSONArray jsonArray = new JSONArray(result);
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -212,6 +169,7 @@ public class AMovieShowActivity extends Activity {
                         movieCity.setcId(jsonObject3.getInt("cId"));
                         movieCity.setcAddress(jsonObject3.getString("cAddress"));
                         movieCity.setcCity(jsonObject3.getString("cCity"));
+                        movieCity.setcName(jsonObject3.getString("cName"));
                         movieCity.setcPhone(jsonObject3.getString("cPhone"));
                         movieHall.setMovieCity(movieCity);
                         movieShow.setMoviehall(movieHall);
@@ -220,7 +178,7 @@ public class AMovieShowActivity extends Activity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }finally{
-                    aMovieShowList.setAdapter(new MovieShowAdapter(aMovieShowData));
+                    aMovieShowListView.setAdapter(new MovieShowAdapter(AMovieShowActivity.this,aMovieShowData));
                 }
             }
         }, new Response.ErrorListener() {
@@ -234,7 +192,7 @@ public class AMovieShowActivity extends Activity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
                 map.put("movie_city_id", s.getInt("movie_city_id",0)+"");
-                map.put("city_name", UserUtils.city);
+                map.put("city_name", s.getString("movie_city",""));
                 map.put("movie_id", movie.getmId() + "");
                 return map;
             }
@@ -242,6 +200,11 @@ public class AMovieShowActivity extends Activity {
         request.setTag("a_movie_show_info");
         queue.add(request);
 
+    }
+    /*修改影城*/
+    public void toChangeMovieCity(View v){
+        Intent intent = new Intent(this,ChoseMovieCityActivity.class);
+        startActivity(intent);
     }
 
     /*

@@ -19,7 +19,7 @@ public class MovieListFragment extends Fragment {
     private MovieListFragmentInterface movieListFragmentInterface;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_movie_list,container,false);
+        View view = inflater.inflate(R.layout.frame_movie_gridview_layout,container,false);
         return view;
     }
 

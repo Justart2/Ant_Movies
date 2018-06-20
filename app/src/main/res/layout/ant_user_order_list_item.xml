@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<top.aezdd.www.view.SwipeListLayout
+    android:id="@+id/swipe_list_item_id"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:focusable="false"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/user_order_pay"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:background="#97D1F7"
+            android:gravity="center"
+            android:text="支付" />
+        <TextView
+            android:id="@+id/user_order_delete"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:background="#66ff0000"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:text="删除" />
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:background="@drawable/cinema_wallet_ticket_bg"
+        android:paddingBottom="10dp">
+
+        <top.aezdd.www.view.CircleImageView
+            android:id="@+id/ant_user_order_movie_image"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ant_logo" />
+        <TextView
+            android:id="@+id/ant_user_order_movie_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ant_user_order_movie_image"
+            android:layout_alignTop="@id/ant_user_order_movie_image"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/colorTheme"
+            android:textSize="15sp"
+            android:text="速度与激情8"
+            />
+        <TextView
+            android:id="@+id/ant_user_order_movie_show_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/ant_user_order_movie_name"
+            android:textSize="12sp"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:textColor="#999"
+            android:text="兰州康桥国际Ant影视城 4号厅"
+            />
+        <TextView
+            android:id="@+id/ant_user_order_movie_show_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ant_user_order_movie_image"
+            android:layout_alignLeft="@id/ant_user_order_movie_name"
+            android:text="2017-04-17 17:30"
+            android:textSize="10sp"
+            android:textColor="#666"
+            />
+        <TextView
+            android:id="@+id/ant_user_order_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="20sp"
+            android:textColor="#EFB41B"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text=""
+            />
+        <TextView
+            android:id="@+id/ant_user_order_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/ant_user_order_movie_image"
+            android:textSize="15sp"
+            android:layout_marginRight="10dp"
+            android:textColor="#ff44ff"
+            android:text=""
+
+            />
+        <ImageView
+            android:id="@+id/ant_movie_user_order_pay_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="-10dp"
+            android:src="@drawable/ant_movie_pay_no_black"/>
+    </RelativeLayout>
+
+</top.aezdd.www.view.SwipeListLayout>

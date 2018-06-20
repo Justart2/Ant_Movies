@@ -6,13 +6,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#5FB9E4"
+        android:background="@color/colorTheme"
         android:orientation="horizontal"
         >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="娱乐新闻"
+            android:text="Ant 头条"
             android:textSize="20sp"
             android:gravity="center"
             android:textColor="#fff"/>

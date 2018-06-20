@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
     defaultConfig {
         applicationId "top.aezdd.www.ant_movies"
         minSdkVersion 15
@@ -12,22 +11,43 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            lintOptions {
+
+                checkReleaseBuilds false
+
+                abortOnError false
+
+            }
         }
     }
     productFlavors {
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile project(':sweet-alert-dialog-library')
-    compile project(':Phoenix-master')
-    compile files('libs/volley.jar')
-    compile files('libs/httpmime-4.2.5.jar')
-    compile files('libs/json.jar')
-    compile files('libs/xUtils-2.6.14.jar')
-    compile files('libs/smscaptcha_v_1_4.jar')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':sweet-alert-dialog-library')
+    implementation project(':Phoenix-master')
+    implementation files('libs/volley.jar')
+    implementation files('libs/httpmime-4.2.5.jar')
+    implementation files('libs/json.jar')
+    implementation files('libs/xUtils-2.6.14.jar')
+    implementation files('libs/smscaptcha_v_1_4.jar')
+    implementation 'com.android.support:appcompat-v7:23.4.0'
+    implementation files('libs/gson-2.1.jar')
+    implementation files('libs/org.apache.http.legacy.jar')
+    implementation files('libs/commons-lang3-3.1.jar')
+    implementation files('libs/commons-httpclient-3.1.jar')
+    implementation files('libs/tbs_sdk_thirdapp_v3.1.0.jar')
+    implementation files('libs/BaiduLBS_Android.jar')
+    implementation files('libs/alipaySdk-20170309.jar')
+    implementation files('libs/open_sdk_r5509.jar')
+    implementation files('libs/mta-sdk-1.6.2.jar')
+    implementation project(':antlistview')
 }
+

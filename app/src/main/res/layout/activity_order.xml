@@ -7,15 +7,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#5FB9E4"
+        android:background="@color/colorTheme"
         android:orientation="horizontal"
         android:padding="5dp">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/calendar_arrow_left_p"
-            android:onClick="exitActicity"/>
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:layout_marginLeft="-5dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/cinema_icon_back_p"
+            android:onClick="exitActivity"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,33 +33,51 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/cinema_activity_pop_bgs"
-        android:layout_weight="7">
+        android:layout_weight="1"
+        android:paddingBottom="2dp"
+        android:scrollbars="none">
         <LinearLayout
             android:layout_width="320dp"
             android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:paddingBottom="15dp"
                 android:background="#fff"
                 android:orientation="vertical">
+                <!--<TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:text="影票信息"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="1dp"
+                    android:singleLine="true"
+                    android:textColor="#000"
+                    android:text="———————————————————————————"/>-->
                 <TextView
                     android:id="@+id/order_movie_name_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:textSize="20sp"
+                    android:layout_margin="8dp"
+                    android:textColor="@color/colorTheme"
+                    android:textSize="18sp"
                     android:text="--电影名--"/>
                 <TextView
                     android:id="@+id/order_movie_type_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:layout_gravity="center"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:text="IMAX-3D"/>
                 <TextView
                     android:id="@+id/order_movie_show_time_text"
@@ -64,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_gravity="center"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:text="2016-09-30 15:42"/>
                 <TextView
                     android:id="@+id/order_movie_city_hall_text"
@@ -72,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_gravity="center"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     android:text="--------"/>
                 <TextView
                     android:id="@+id/order_movie_chose_seat_text"
@@ -80,9 +101,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_gravity="center"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     android:text="【3排4座】"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,12 +122,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:gravity="center_horizontal"
                     android:singleLine="true"
                     android:textColor="#000"
                     android:text="———————————————————————————"/>
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp" />
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/order_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="陌上花开"
+                        />
+                    <TextView
+                        android:id="@+id/order_user_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_height="wrap_content"
+                        android:text="15117088744"/>
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -117,13 +156,132 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:gravity="center_horizontal"
                     android:singleLine="true"
                     android:textColor="#000"
                     android:text="———————————————————————————"/>
+
+                <TextView
+                    android:id="@+id/order_movie_discount"
+                    android:layout_width="match_parent"
+                    android:paddingBottom="15dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:textColor="#7AA410"
+                    android:text="本场电影8折，祝您观影愉快"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#fff"
+                android:layout_marginTop="10dp">
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="20dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:text="结算信息"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:textColor="#000"
+                    android:text="———————————————————————————"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="票价"
+                        />
+                    <TextView
+                        android:id="@+id/order_tickets_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="2"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:text="x"/>
+                    <TextView
+                        android:id="@+id/order_tickets_price"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="30.0 元"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="优惠"
+                        />
+                    <TextView
+                        android:id="@+id/order_tickets_discount"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:textColor="#7AA410"
+                        android:textSize="16sp"
+                        android:layout_height="wrap_content"
+                        android:text="8"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 折"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="应付金额"
+                        />
+                    <TextView
+                        android:id="@+id/order_count_price"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#aa0000"
+                        android:text="24.0"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 元"/>
+                </LinearLayout>
             </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,45 +300,79 @@
                     android:padding="5dp"
                     android:singleLine="true"
                     android:textColor="#000"
+                    android:gravity="center_horizontal"
                     android:text="———————————————————————————"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:padding="5dp"
-                        android:layout_weight="1">
-
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/order_pay_weixin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="toWXPay"
+                            android:src="@drawable/cinema_icon_weixin_app"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="微信"/>
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:padding="5dp"
-                        android:layout_weight="1">
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/order_pay_alipay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="toAliPay"
+                            android:src="@drawable/cinema_icon_alipay_app"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="支付宝"/>
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:padding="5dp"
-                        android:layout_weight="1">
 
-                    </LinearLayout>
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:padding="5dp"
-                        android:layout_weight="1">
-
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/order_pay_yinlian"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:onClick="toCBUPay"
+                            android:src="@drawable/cinema_icon_wanda_debit_pay"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="中国银联"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+        
     </ScrollView>
+    
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_alignParentBottom="true"
@@ -199,6 +391,6 @@
             android:textColor="#fff"
             android:text="支付订单"
             />
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 </LinearLayout>

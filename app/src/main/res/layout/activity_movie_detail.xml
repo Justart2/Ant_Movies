@@ -7,15 +7,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#5FB9E4"
+        android:background="@color/colorTheme"
         android:orientation="horizontal"
         android:padding="5dp">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/calendar_arrow_left_p"
-            android:onClick="exitActicity"/>
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:layout_marginLeft="-5dp"
+            android:layout_centerVertical="true"
+            android:onClick="exitActivity"
+            android:src="@drawable/cinema_icon_back_p" />
 
         <TextView
             android:id="@+id/text_movie_detail_name"
@@ -24,18 +27,21 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="--"
+            android:textColor="#fff"
             android:textSize="20sp" />
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:scrollbars="vertical"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:scrollbars="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,8 +55,7 @@
                     android:layout_height="200dp"
                     android:layout_marginRight="5dp"
                     android:padding="5dp"
-                    android:src="@drawable/movie_logo_demo"/>
-
+                    android:src="@drawable/movie_logo_demo" />
 
 
                 <LinearLayout
@@ -60,44 +65,46 @@
                     android:padding="5dp">
 
                     <TextView
-                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="类型:"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
 
                     <TextView
-                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="国家:"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
 
                     <TextView
-                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="版本:"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
 
                     <TextView
-                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="时长:"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
+
                     <TextView
-                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="上映:"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -105,168 +112,312 @@
                     android:padding="5dp">
 
                     <TextView
-                        android:gravity="center"
                         android:id="@+id/text_movie_detail_type"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="--"
                         android:textColor="#000"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
+
                     <TextView
-                        android:gravity="center"
                         android:id="@+id/text_movie_detail_country"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="--"
                         android:textColor="#000"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
+
                     <TextView
-                        android:gravity="center"
                         android:id="@+id/text_movie_detail_version"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="--"
                         android:textColor="#000"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
+
                     <TextView
-                        android:gravity="center"
                         android:id="@+id/text_movie_detail_time_length"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="--"
                         android:textColor="#000"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
+
                     <TextView
-                        android:gravity="center"
                         android:id="@+id/text_movie_detail_release_time"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="--"
                         android:textColor="#000"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
+
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp">
+
+                <ImageView
+                    android:id="@+id/ant_movie_detail_user_like_percentage_image_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:src="@drawable/cinema_icon_like_60" />
+
+                <TextView
+                    android:id="@+id/ant_movie_detail_user_like_percentage_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="75%"
+                    android:textColor="#111"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="人喜欢"
+                    android:textColor="#111"
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:id="@+id/ant_movie_detail_user_like_image_view"
+                    android:layout_width="94dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:clickable="true"
+                    android:onClick="likeMovieClick"
+                    android:src="@drawable/cinema_icon_film_detail_like_n" />
+
+                <ImageView
+                    android:id="@+id/ant_movie_detail_user_dislike_image_view"
+                    android:layout_width="94dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:clickable="true"
+                    android:onClick="dislikeMovieClick"
+                    android:src="@drawable/cinema_icon_film_detail_dislike_n" />
+            </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="#eee"
-                />
+                android:layout_height="2dp"
+                android:background="#ccc" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
+
                 <TextView
                     android:id="@+id/test_director"
                     android:layout_width="wrap_content"
-                    android:gravity="center"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="导演："
-                    android:textSize="16sp"/>
+                    android:textSize="15sp" />
+
                 <TextView
                     android:id="@+id/text_movie_detail_director"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/test_director"
                     android:text="--"
-                    android:textSize="16sp"
                     android:textColor="#000"
-                    android:layout_toRightOf="@id/test_director"/>
+                    android:textSize="15sp" />
+
                 <TextView
                     android:id="@+id/test_actor"
                     android:layout_width="wrap_content"
-                    android:gravity="center"
                     android:layout_height="wrap_content"
-                    android:text="主演："
-                    android:textSize="16sp"
-                    android:layout_marginTop="10dp"
                     android:layout_below="@id/test_director"
-                    />
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="主演："
+                    android:textSize="15sp" />
+
                 <TextView
                     android:id="@+id/text_movie_detail_actor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="--"
-                    android:textSize="16sp"
-                    android:textColor="#000"
-                    android:layout_marginTop="10dp"
                     android:layout_below="@id/text_movie_detail_director"
-                    android:layout_toRightOf="@id/test_actor"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/test_actor"
+                    android:text="--"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
             </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="#eee"
-                />
+                android:layout_height="2dp"
+                android:background="#ccc" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="5dp">
+
                 <TextView
-                    android:layout_marginLeft="5dp"
                     android:id="@+id/text_movie_detail_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:text="--"/>
+                    android:layout_marginLeft="5dp"
+                    android:text="--"
+                    android:textSize="13sp" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="none"
-                    >
+                    android:paddingLeft="5dp"
+                    android:scrollbars="none">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
+
                         <ImageView
                             android:id="@+id/image_movie_detail_photo1"
                             android:layout_width="100dp"
                             android:layout_height="75dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_launcher"/>
+                            android:src="@drawable/ic_launcher" />
+
                         <ImageView
                             android:id="@+id/image_movie_detail_photo2"
                             android:layout_width="100dp"
                             android:layout_height="75dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_launcher"/>
+                            android:src="@drawable/ic_launcher" />
+
                         <ImageView
                             android:id="@+id/image_movie_detail_photo3"
                             android:layout_width="100dp"
                             android:layout_height="75dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_launcher"/>
+                            android:src="@drawable/ic_launcher" />
+
                         <ImageView
                             android:id="@+id/image_movie_detail_photo4"
                             android:layout_width="100dp"
                             android:layout_height="75dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_launcher"/>
+                            android:src="@drawable/ic_launcher" />
                     </LinearLayout>
-                </HorizontalScrollView >
+                </HorizontalScrollView>
 
             </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="#eee"
-                />
+                android:layout_height="2dp"
+                android:background="#ccc" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/ic_category_hot" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="最热评论"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/ant_movie_detail_user_evaluate_click_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:onClick="goEvaluateMovie"
+                    android:src="@drawable/ant_movie_detail_user_evaluate_icon"
+                     />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ant_movie_detail_user_evaluate_layout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+                android:visibility="gone"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/ant_movie_detail_user_evaluate_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:singleLine="true"
+                    android:gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/style_find_city_edit_text"
+                    android:drawableLeft="@drawable/xiugai"
+                    android:drawablePadding="5dp"
+                    />
+                <ImageView
+                    android:id="@+id/ant_movie_detail_user_evaluate_click_imageview"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:onClick="evaluateMovie"
+                    android:src="@drawable/ant_movie_detail_user_evaluate_icon" />
+            </LinearLayout>
+
+            <top.aezdd.www.view.MovieEvaluateListView
+                android:id="@+id/ant_movie_detail_user_evaluate_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </top.aezdd.www.view.MovieEvaluateListView>
         </LinearLayout>
+
+
     </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:background="#eee">
+
         <Button
+            android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -274,8 +425,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:onClick="toChoseSite"
             android:background="#F48D50"
+            android:onClick="toChoseSite"
             android:text="选座购票"
             android:textColor="#fff" />
 

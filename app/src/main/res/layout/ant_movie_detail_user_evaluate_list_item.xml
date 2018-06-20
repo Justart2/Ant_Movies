@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <top.aezdd.www.view.CircleImageView
+        android:id="@+id/ant_movie_detail_user_evaluate_image"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ant_logo" />
+
+
+    <TextView
+        android:id="@+id/ant_movie_detail_user_evaluate_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ant_movie_detail_user_evaluate_image"
+        android:layout_alignTop="@id/ant_movie_detail_user_evaluate_image"
+        android:textSize="10sp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#476D91"
+        android:text="盲目街头" />
+
+    <TextView
+        android:id="@+id/ant_movie_detail_user_evaluate_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/ant_movie_detail_user_evaluate_name"
+        android:layout_below="@id/ant_movie_detail_user_evaluate_name"
+        android:textSize="12sp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/colorTheme"
+        android:paddingRight="20dp"
+        android:text="ffkdfdfljdfkldjdhfkshfkhdfkhfjkshfks"/>
+
+    <TextView
+        android:id="@+id/ant_movie_detail_user_evaluate_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="8sp"
+        android:layout_alignBottom="@id/ant_movie_detail_user_evaluate_name"
+        android:layout_alignParentRight="true"
+        android:text="2017/04/06 12:34"/>
+</RelativeLayout>

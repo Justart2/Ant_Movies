@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<top.aezdd.www.view.SwipeListLayout
+    android:id="@+id/swipe_list_item_id"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/user_like_find"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:background="#97D1F7"
+            android:gravity="center"
+            android:text="查看" />
+        <TextView
+            android:id="@+id/user_like_delete"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:background="#66ff0000"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:text="删除" />
+
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <top.aezdd.www.view.CircleImageView
+            android:id="@+id/ant_movie_like_image"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ant_logo" />
+        <ImageView
+            android:id="@+id/user_like_movie_state_icon"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/cinema_icon_film_detail_has_liked"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ant_movie_like_image"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@id/user_like_movie_state_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/ant_movie_like_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:textColor="#476D91"
+                android:text="速度与激情8" />
+
+            <TextView
+                android:id="@+id/ant_movie_info_like_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/ant_movie_like_name"
+                android:layout_below="@id/ant_movie_like_name"
+                android:textSize="10sp"
+                android:singleLine="true"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorTheme"
+                android:text="----"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</top.aezdd.www.view.SwipeListLayout>

@@ -1,12 +1,12 @@
 package top.aezdd.www.ant_movies;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,18 +30,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import top.aezdd.www.adapter.MovieCityAdapter;
 import top.aezdd.www.entity.MovieCity;
-import top.aezdd.www.utils.UserUtils;
-import top.aezdd.www.utils.httpUtils.HttpUtil;
-import top.aezdd.www.viewholder.MovieCityViewHolder;
+import top.aezdd.www.utils.HttpUtil;
 
 public class ChoseMovieCityActivity extends Activity {
-
+    SharedPreferences s;
     RequestQueue requestQueue;
     List<MovieCity> movieCityData = new ArrayList<>();
+    private String cityName = "城市";
     @ViewInject(R.id.text_city_name)TextView city;
     @ViewInject(R.id.pull_to_refresh_movie_city)PullToRefreshView mPullToRefreshView;
-    @ViewInject(R.id.list_movie_city)ListView movieCityList;
+    @ViewInject(R.id.list_movie_city)ListView movieCityListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +49,29 @@ public class ChoseMovieCityActivity extends Activity {
         ViewUtils.inject(this);
         initView();
     }
-    public void initView(){
-        requestQueue = Volley.newRequestQueue(this);
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(resultCode ==RESULT_OK){
+                cityName = data.getStringExtra("city_name");
+            }
+        }
+        movieCityData.removeAll(movieCityData);
         getHttpData();
-        city.setText(UserUtils.city);
+        Log.d("sss",cityName);
+    }
+
+    public void initView(){
+
+        requestQueue = Volley.newRequestQueue(this);
+        movieCityData.removeAll(movieCityData);
+        s = getSharedPreferences("ant_movies_city", MODE_PRIVATE);
+        cityName = s.getString("movie_city","城市");
+        Log.e("sss-------------->", cityName);
+
+        getHttpData();
         mPullToRefreshView = (PullToRefreshView) this.findViewById(R.id.pull_to_refresh_movie_city);
         mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
@@ -65,6 +84,21 @@ public class ChoseMovieCityActivity extends Activity {
                         mPullToRefreshView.setRefreshing(false);
                     }
                 }, 1000);
+            }
+        });
+
+        movieCityListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferences sharedPreferences = getSharedPreferences("ant_movies_city", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("movie_city_id", movieCityData.get(position).getcId());
+                editor.putString("movie_city_name", movieCityData.get(position).getcName());
+                editor.putString("movie_city_address", movieCityData.get(position).getcAddress());
+                editor.putString("movie_city_phone", movieCityData.get(position).getcPhone());
+                editor.putString("movie_city", movieCityData.get(position).getcCity());
+                editor.commit();
+                finish();
             }
         });
     }
@@ -89,7 +123,8 @@ public class ChoseMovieCityActivity extends Activity {
                 }catch(Exception e){
                     e.printStackTrace();
                 }finally{
-                    movieCityList.setAdapter(new MovieCityAdapter(movieCityData));
+                    city.setText(cityName);
+                    movieCityListView.setAdapter(new MovieCityAdapter(ChoseMovieCityActivity.this,movieCityData,movieCityListView));
                 }
             }
         }, new Response.ErrorListener() {
@@ -101,63 +136,15 @@ public class ChoseMovieCityActivity extends Activity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
-                map.put("city_name",UserUtils.city);
+                Log.d("000000--------",cityName);
+                map.put("city_name",cityName);
                 return map;
             }
         };
         stringRequest.setTag("movie_city_volley");
         requestQueue.add(stringRequest);
     }
-    class MovieCityAdapter extends BaseAdapter{
-        List<MovieCity> list;
-        public MovieCityAdapter(List<MovieCity> list){
-            this.list = list;
-        }
-        @Override
-        public int getCount() {
-            return list.size();
-        }
 
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return list.get(position);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            MovieCityViewHolder movieCityViewHolder;
-            if(convertView == null){
-                movieCityViewHolder = new MovieCityViewHolder();
-                convertView = getLayoutInflater().inflate(R.layout.movie_city_item,parent,false);
-                movieCityViewHolder.setMovieCityAddress((TextView)convertView.findViewById(R.id.text_movie_city_item_address));
-                movieCityViewHolder.setMovieCityName((TextView) convertView.findViewById(R.id.text_movie_city_item_name));
-                convertView.setTag(movieCityViewHolder);
-            }
-            movieCityViewHolder = (MovieCityViewHolder)convertView.getTag();
-            movieCityViewHolder.getMovieCityAddress().setText(list.get(position).getcAddress());
-            movieCityViewHolder.getMovieCityName().setText(list.get(position).getcName());
-            movieCityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    SharedPreferences sharedPreferences = getSharedPreferences("ant_movies_city",MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("movie_city_id", list.get(position).getcId());
-                    editor.putString("movie_city_name", list.get(position).getcName());
-                    editor.putString("movie_city_address",list.get(position).getcAddress());
-                    editor.putString("movie_city_phone",list.get(position).getcPhone());
-                    editor.putString("movie_city",list.get(position).getcCity());
-                    editor.commit();
-                    finish();
-                }
-            });
-            return convertView;
-        }
-    }
     /**
      * volley与Activity生命周期联动
      * */
@@ -171,7 +158,8 @@ public class ChoseMovieCityActivity extends Activity {
      * 选择城市
      * */
     public void toChoseCity(View v){
-
+        Intent intent = new Intent(this,CityActivity.class);
+        startActivityForResult(intent,1);
     }
     public void exitChoseMovieCity(View v){
         finish();
