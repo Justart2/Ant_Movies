@@ -16,11 +16,14 @@ import top.aezdd.www.ant_movies.R;
 
 public class LoginByPhoneFragment extends Fragment {
     private LoginByPhoneInterface loginByPhoneInterface;
-
+    private View mView = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frame_login_by_phone,container,false);
-        return view;
+        if(mView == null){
+            mView = inflater.inflate(R.layout.frame_login_by_phone,container,false);
+        }
+
+        return mView;
     }
 
     @Override
@@ -42,6 +45,13 @@ public class LoginByPhoneFragment extends Fragment {
         super.onResume();
         loginByPhoneInterface.initLoginByPhoneView();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mView = null;
+    }
+
     public interface LoginByPhoneInterface{
         void initLoginByPhoneView();
     }

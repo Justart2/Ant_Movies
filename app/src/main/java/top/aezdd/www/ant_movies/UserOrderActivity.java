@@ -188,7 +188,7 @@ public class UserOrderActivity extends Activity {
             }
             orderViewHolder = (OrderViewHolder) convertView.getTag();
             //加载图片
-            String url = HttpUtil.IMGHTTPURL+list.get(position).getMovieShow().getMovie().getmPicture();
+            String url = HttpUtil.MOVIE_IMG_HTTP_URL+list.get(position).getMovieShow().getMovie().getmPicture();
             LoadImg.getUrlImageByVolley(mContext,requestQueue,url,orderViewHolder.getMovieLogo());
             orderViewHolder.getMovieName().setText(list.get(position).getMovieShow().getMovie().getmName());
             orderViewHolder.getMovieShowCityHaLL().setText(list.get(position).getMovieShow().getMoviehall().getMovieCity().getcName()

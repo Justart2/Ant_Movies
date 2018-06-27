@@ -3,6 +3,7 @@ package top.aezdd.www.fragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,13 @@ import top.aezdd.www.ant_movies.R;
  */
 public class LiveFragment extends Fragment{
     private LiveFragmentInterface liveFragmentInterface;
+    private View mView = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frame_ant_live_index,container,false);
-        return view;
+        if(mView == null){
+            mView = inflater.inflate(R.layout.frame_ant_live_index,container,false);
+        }
+        return mView;
     }
 
     @Override
@@ -35,9 +39,15 @@ public class LiveFragment extends Fragment{
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         liveFragmentInterface.loadLiveData();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mView = null;
     }
 
     public interface LiveFragmentInterface{

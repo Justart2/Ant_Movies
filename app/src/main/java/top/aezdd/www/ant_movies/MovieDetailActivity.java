@@ -99,7 +99,7 @@ public class MovieDetailActivity extends Activity {
         getMovieEvaluate();
     }
     public void setData(){
-        String url1 = HttpUtil.IMGHTTPURL + movie.getmPicture();
+        String url1 = HttpUtil.MOVIE_IMG_HTTP_URL + movie.getmPicture();
         getInternetImage(imageMovieLogo, url1);
         textMovieCountry.setText(movie.getmCountry());
         textMovieVersion.setText(movie.getmVersion());
@@ -111,10 +111,10 @@ public class MovieDetailActivity extends Activity {
         textMovieActor.setText(movie.getmActor());
         textMovieDescription.setText(movie.getmDescription());
         String[] imagePhotos = movie.getmStagePhotos().split(";");
-        getInternetImage(imageMoviePhoto1, HttpUtil.IMGHTTPURL + imagePhotos[0]);
-        getInternetImage(imageMoviePhoto2, HttpUtil.IMGHTTPURL + imagePhotos[1]);
-        getInternetImage(imageMoviePhoto3, HttpUtil.IMGHTTPURL+imagePhotos[2]);
-        getInternetImage(imageMoviePhoto4, HttpUtil.IMGHTTPURL + imagePhotos[3]);
+        ImageView[] imageMoviePhoto = {imageMoviePhoto1,imageMoviePhoto2,imageMoviePhoto3,imageMoviePhoto4};
+        for(int i = 0;i<imagePhotos.length;i++){
+            getInternetImage(imageMoviePhoto[i], HttpUtil.MOVIE_IMG_HTTP_URL + imagePhotos[i]);
+        }
         //显示喜欢率
         showLikeIcon(Integer.parseInt(movie.getmRate()));
         //evaluateListView.setAdapter(new MovieEvaluateListAdapter(this,requestQueue));

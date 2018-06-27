@@ -98,10 +98,12 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
     protected void onRestart() {
         super.onRestart();
         //还原标题栏目
+        /*
         showingButton.setBackgroundColor(0xFFEEEEEE);
         willingButton.setBackgroundColor(0xFF888888);
         willingButton.setTextColor(0xFFFFFFFF);
         showingButton.setTextColor(0xFF555555);
+        */
         //加载影院信息
         s = getSharedPreferences("ant_movies_city", MODE_PRIVATE);
         String mCity = s.getString("movie_city_name", "");
@@ -133,7 +135,7 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
         showingButton.setTextColor(0xFF555555);
         url = HttpUtil.HttpUrl + "/movies/now_movies_android.do";
         LoadData l = new LoadData();
-        moviesList = l.getMoviesListInternetData(MainActivity.this, movies_now_grid, requestQueue, url, tag);
+        moviesList = l.getMoviesListInternetData(MainActivity.this, movies_now_list, requestQueue, url, tag);
     }
 
     public void toWillingMovies(View v) {
@@ -143,7 +145,7 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
         willingButton.setTextColor(0xFF555555);
         url = HttpUtil.HttpUrl + "/movies/will_movies_android.do";
         LoadData l = new LoadData();
-        moviesList = l.getMoviesListInternetData(MainActivity.this, movies_now_grid, requestQueue, url, tag);
+        moviesList = l.getMoviesListInternetData(MainActivity.this, movies_now_list, requestQueue, url, tag);
     }
 
     /*跳转选择城市Activity*/
@@ -219,14 +221,14 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
         showingButton = (TextView) fragment.getView().findViewById(R.id.test_movie_showing);
         willingButton = (TextView) fragment.getView().findViewById(R.id.test_movie_willing);
         movies_now_list = (ListView) fragment.getView().findViewById(R.id.movie_now_list);
-        movies_now_grid = (GridView)fragment.getView().findViewById(R.id.movie_now_grid);
+        //movies_now_grid = (GridView)fragment.getView().findViewById(R.id.movie_now_grid);
         loadMoviesListData = new LoadData();
         if(moviesList.size()==0){
-            //moviesList = loadMoviesListData.getMoviesListInternetData(MainActivity.this, movies_now_list, requestQueue, url, tag);
-            moviesList = loadMoviesListData.getMoviesListInternetData(MainActivity.this, movies_now_grid, requestQueue, url, tag);
+            moviesList = loadMoviesListData.getMoviesListInternetData(MainActivity.this, movies_now_list, requestQueue, url, tag);
+            //moviesList = loadMoviesListData.getMoviesListInternetData(MainActivity.this, movies_now_grid, requestQueue, url, tag);
         }else{
-            //movies_now_list.setAdapter(new MoviesAdapter(MainActivity.this,moviesList));
-            movies_now_grid.setAdapter(new MoviesGridAdapter(MainActivity.this,moviesList));
+            movies_now_list.setAdapter(new MoviesAdapter(MainActivity.this,moviesList));
+            //movies_now_grid.setAdapter(new MoviesGridAdapter(MainActivity.this,moviesList));
         }
         mPullToRefreshView = (PullToRefreshView) fragment.getView().findViewById(R.id.pull_to_refresh);
         mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
@@ -236,16 +238,16 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
                     @Override
                     public void run() {
                         moviesList.removeAll(moviesList);
-                        //moviesList = loadMoviesListData.getMoviesListInternetData(MainActivity.this, movies_now_list, requestQueue, url, tag);
-                        moviesList = loadMoviesListData.getMoviesListInternetData(MainActivity.this, movies_now_grid, requestQueue, url, tag);
+                        moviesList = loadMoviesListData.getMoviesListInternetData(MainActivity.this, movies_now_list, requestQueue, url, tag);
+                        //moviesList = loadMoviesListData.getMoviesListInternetData(MainActivity.this, movies_now_grid, requestQueue, url, tag);
                         mPullToRefreshView.setRefreshing(false);
                     }
                 }, 1000);
             }
         });
         /*设置listview的item单机事件*/
-        //movies_now_list
-        movies_now_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //movies_now_grid
+        movies_now_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent();
@@ -375,7 +377,7 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
             if (userImgStr.equals("") || userImgStr == null) {
                 userImg.setImageResource(R.drawable.ant_logo);
             } else {
-                String url = HttpUtil.IMGHTTPURL + userImgStr;
+                String url = HttpUtil.USER_IMG_HTTP_URL + userImgStr;
                 LoadImg.getUrlImageByVolley(MainActivity.this, requestQueue, url, userImg);
             }
             userName.setText(userNameStr);

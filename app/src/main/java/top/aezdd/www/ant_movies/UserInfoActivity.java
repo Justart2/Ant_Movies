@@ -110,7 +110,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
     public void initImg(){
         //设置头像
         userImgData = s.getString("user_picture","");
-        LoadImg.getUrlImageByVolley(this,requestQueue,HttpUtil.IMGHTTPURL+userImgData,userImgView);
+        LoadImg.getUrlImageByVolley(this,requestQueue,HttpUtil.USER_IMG_HTTP_URL+userImgData,userImgView);
     }
 
     @Override

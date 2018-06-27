@@ -17,10 +17,13 @@ import top.aezdd.www.ant_movies.R;
 
 public class LoginByAccountFragment extends Fragment{
     private LoginByAccountInterface loginByAccountInterface;
+    private View mView = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frame_login_by_ant_account,container,false);
-        return view;
+        if(mView == null){
+            mView = inflater.inflate(R.layout.frame_login_by_ant_account,container,false);
+        }
+        return mView;
     }
 
     @Override
@@ -42,6 +45,13 @@ public class LoginByAccountFragment extends Fragment{
         super.onResume();
         loginByAccountInterface.initLoginAccountView();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mView = null;
+    }
+
     public interface LoginByAccountInterface{
          void initLoginAccountView();
     }

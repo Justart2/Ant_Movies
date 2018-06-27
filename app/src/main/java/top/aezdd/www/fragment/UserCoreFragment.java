@@ -15,10 +15,14 @@ import top.aezdd.www.ant_movies.R;
  */
 public class UserCoreFragment extends Fragment{
     UserFragmentInterface userFragmentInterface;
+    private View mView = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frame_user_core,container,false);
-        return view;
+        if(mView == null){
+            mView = inflater.inflate(R.layout.frame_user_core,container,false);
+        }
+
+        return mView;
     }
     @Override
     public void onAttach(Activity activity) {
@@ -34,11 +38,24 @@ public class UserCoreFragment extends Fragment{
         }
     }
 
+    /*@Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        userFragmentInterface.getUserData();
+    }*/
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         userFragmentInterface.getUserData();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mView = null;
+    }
+
     public interface UserFragmentInterface{
         public void getUserData();
     }

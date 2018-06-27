@@ -77,7 +77,7 @@ public class MovieEvaluateListAdapter extends BaseAdapter{
         String evaluateTime = dateFormat.format(new Date(mList.get(position).geteTime()));
         movieEvaluateViewHolder.getEvaluateTime().setText(evaluateTime);
         //设置图片
-        String url = HttpUtil.IMGHTTPURL+mList.get(position).getUser().getuPicture();
+        String url = HttpUtil.USER_IMG_HTTP_URL+mList.get(position).getUser().getuPicture();
         LoadImg.getUrlImageByVolley(mContext,requestQueue,url,movieEvaluateViewHolder.getEvaluateImg());
 
         return convertView;

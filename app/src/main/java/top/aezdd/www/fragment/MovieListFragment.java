@@ -17,10 +17,13 @@ import top.aezdd.www.ant_movies.R;
  */
 public class MovieListFragment extends Fragment {
     private MovieListFragmentInterface movieListFragmentInterface;
+    private View mView = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frame_movie_gridview_layout,container,false);
-        return view;
+        if(mView == null){
+            mView = inflater.inflate(R.layout.fragment_movie_list,container,false);
+        }
+        return mView;
     }
 
     @Override
@@ -38,9 +41,15 @@ public class MovieListFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         movieListFragmentInterface.loadMovieListData();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mView = null;
     }
 
     public interface MovieListFragmentInterface {

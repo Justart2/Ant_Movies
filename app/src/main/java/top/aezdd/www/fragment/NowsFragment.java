@@ -16,10 +16,14 @@ import top.aezdd.www.ant_movies.R;
  */
 public class NowsFragment extends Fragment {
     NowsFragmentInterface nowsFragmentInterface;
+    private View mView = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_nows_list,container,false);
-        return view;
+        if(mView == null){
+            mView = inflater.inflate(R.layout.fragment_nows_list,container,false);
+        }
+
+        return mView;
     }
 
     @Override
@@ -37,10 +41,17 @@ public class NowsFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         nowsFragmentInterface.getNowsData();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mView = null;
+    }
+
     public interface NowsFragmentInterface{
         public void getNowsData();
     }

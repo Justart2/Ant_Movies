@@ -254,7 +254,7 @@ public class UserLikeActivity extends Activity {
             }
 
             //设置电影图片
-            String url = HttpUtil.IMGHTTPURL+mList.get(position).getMovie().getmPicture();
+            String url = HttpUtil.MOVIE_IMG_HTTP_URL+mList.get(position).getMovie().getmPicture();
             LoadImg.getUrlImageByVolley(mContext,requestQueue,url,userlikeMoviesViewHolder.getUserLikeMovieImg());
             userlikeMoviesViewHolder.getSwipeListLayout().setOnSwipeStatusListener(new MySwipeStatusListener(userlikeMoviesViewHolder.getSwipeListLayout()));
             userlikeMoviesViewHolder.getFind().setOnClickListener(new View.OnClickListener() {

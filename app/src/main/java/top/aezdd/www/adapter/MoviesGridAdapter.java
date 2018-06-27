@@ -83,7 +83,7 @@ public class MoviesGridAdapter extends BaseAdapter {
         moviesViewHolder.getMovieRate().setText(moviesList.get(position).getmRate()+"% 人喜欢");
         //moviesViewHolder.getMovieType().setText(moviesList.get(position).getmType());
         //moviesViewHolder.getMovieVersion().setText(moviesList.get(position).getmVersion());
-        LoadImg.getMovieImage(moviesViewHolder.getMovieLogo(), HttpUtil.IMGHTTPURL + moviesList.get(position).getmPicture(), mContext);
+        LoadImg.getMovieImage(moviesViewHolder.getMovieLogo(), HttpUtil.MOVIE_IMG_HTTP_URL + moviesList.get(position).getmPicture(), mContext);
         moviesViewHolder.getMovieClickBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +106,7 @@ public class MoviesGridAdapter extends BaseAdapter {
         return convertView;
     }
     /*根据对应喜欢率显示对应的图标(整数显示)*/
-    public void showLikeIcon(int likePrecentage,ImageView likePercentageImageView){
+    public void showLikeIcon(float likePrecentage,ImageView likePercentageImageView){
         if(likePrecentage==0){
             likePercentageImageView.setImageResource(movieLikePImg[0]);
         }else if(likePrecentage<=25){
