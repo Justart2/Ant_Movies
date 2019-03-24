@@ -28,6 +28,7 @@ import java.util.Map;
 import top.aezdd.www.entity.MovieShow;
 import top.aezdd.www.entity.User;
 import top.aezdd.www.utils.LoginUtil;
+import top.aezdd.www.view.MovieSeatView;
 
 public class ChoseSeatActivity extends Activity {
     private SharedPreferences s;
@@ -36,11 +37,12 @@ public class ChoseSeatActivity extends Activity {
     Map<Integer,String> map = null;
     List<String> list = new ArrayList<String>();
     private User user;
+    private GridView movieGridView;
     @ViewInject(R.id.chose_seat_a_movie_show_name)TextView movieName;
     @ViewInject(R.id.chose_seat_movie_show_time)TextView movieSHowTime;
     @ViewInject(R.id.chose_seat_movie_show_city_hall)TextView movieCityHall;
     @ViewInject(R.id.chose_seat_result)TextView movieChosedSeat;
-    @ViewInject(R.id.chose_seat_girdview)GridView movieGridView;
+    @ViewInject(R.id.choose_seat_view)MovieSeatView movieSeatView;
     @ViewInject(R.id.chose_seat_next_stage_text)TextView nextStage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +62,50 @@ public class ChoseSeatActivity extends Activity {
         movieSHowTime.setText(sf.format(date));
 
         movieCityHall.setText(s.getString("movie_city_name","")+" "+movieShow.getMoviehall().gethName());
-        getSeatInfo();
-        movieGridView.setAdapter(new SeatGridViewAdapter());
+        //getSeatInfo();
+        movieSeatView.setData(getSeatInfoToStringArray());
+        //movieGridView.setAdapter(new SeatGridViewAdapter());
         //Toast.makeText(ChoseSeatActivity.this, list.size()+"", Toast.LENGTH_SHORT).show();
+        movieSeatView.setChooseSeatListener(new MovieSeatView.ChooseSeatListener() {
+            @Override
+            public void chooseSeatResult(List<ArrayList<Integer>> chooseList) {
+                seatData.removeAll(seatData);
+                String seatstr = "";
+                for(int i = 0;i<chooseList.size();i++){
+
+                    seatData.add((chooseList.get(i).get(0)) + ":" + (chooseList.get(i).get(1)));
+                    if(chooseList.size()>3&&i == 3 ){
+                        seatstr += "\n";
+                    }
+                    seatstr += "【" + (chooseList.get(i).get(0) +1) + "排，" + (chooseList.get(i).get(1)+1) + "座】";
+
+                }
+                movieChosedSeat.setText(seatstr);
+
+                if (seatData.size() != 0) {
+                    nextStage.setBackgroundColor(Color.parseColor("#FF4400"));
+                    nextStage.setClickable(true);
+                } else {
+                    nextStage.setBackgroundColor(Color.parseColor("#BBBBBB"));
+                    nextStage.setClickable(false);
+                }
+            }
+        });
     }
-    public void getSeatInfo(){
+    private String[][] seatStr;
+    private List<String> seatData = new ArrayList<>();
+    public String[][] getSeatInfoToStringArray(){
+
         String str = movieShow.getMoviehall().gethSeat();
         String s1[] = str.split(";");
+        seatStr = new String[s1.length][s1[0].length()];
         for(int i=0;i<s1.length;i++){
             for(int j=0;j<s1[i].length();j++){
-               list.add(s1[i].charAt(j)+"");
+               //list.add(s1[i].charAt(j)+"");
+                seatStr[i][j] = s1[i].charAt(j)+"";
             }
         }
+        return seatStr;
     }
     class SeatGridViewAdapter extends BaseAdapter{
         @Override
@@ -168,7 +202,7 @@ public class ChoseSeatActivity extends Activity {
             Intent intent = new Intent();
             intent.setClass(this,OrderActivity.class);
             intent.putExtra("a_movie_show_info", movieShow);
-            intent.putExtra("a_movie_show_seat",(Serializable)seatTemp);
+            intent.putExtra("a_movie_show_seat",(Serializable)seatData);
             startActivity(intent);
         }else{
             //去登陆

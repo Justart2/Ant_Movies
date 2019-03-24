@@ -79,7 +79,7 @@ public class UserEvaluateListAdapter extends BaseAdapter{
         String evaluateTime = dateFormat.format(new Date(mList.get(position).geteTime()));
         userEvaluateViewHolder.getEvaluateTime().setText(evaluateTime);
         //设置图片
-        String url = HttpUtil.MOVIE_IMG_HTTP_URL+mList.get(position).getMovie().getmPicture();
+        String url = HttpUtil.MOVIE_LOGOG_IMG_HTTP_URL+mList.get(position).getMovie().getmPicture();
         LoadImg.getUrlImageByVolley(mContext,requestQueue,url,userEvaluateViewHolder.getEvaluateImg());
         return convertView;
     }

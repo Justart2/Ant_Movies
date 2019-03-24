@@ -91,7 +91,13 @@ public class MovieShowAdapter extends BaseAdapter {
         movieShowViewHolder.getMovieShowTime().setText(new SimpleDateFormat("HH:mm").format(new Date(list.get(position).getsTime())));
         movieShowViewHolder.getMovieShowprice().setText("￥" + list.get(position).getMovie().getmPrice());
         movieShowViewHolder.getMovieShowTimeLength().setText(list.get(position).getMovie().getmTimeLength()+"分钟");
-        movieShowViewHolder.getMovieShowVersion().setText(list.get(position).getMovie().getmVersion());
+        String movieHallType = list.get(position).getMovie().getmVersion();
+        if(movieHallType.contains("中国巨幕")){
+            movieHallType = "巨幕";
+        }else{
+            movieHallType = "普通";
+        }
+        movieShowViewHolder.getMovieShowVersion().setText(movieHallType);
         movieShowViewHolder.getMovieShowCountry().setText("座位:" + seated+"/"+seatCount);
 
         return convertView;

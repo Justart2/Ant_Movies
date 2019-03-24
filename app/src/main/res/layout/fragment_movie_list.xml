@@ -58,19 +58,33 @@
                 android:clickable="true"
                 android:onClick="toWillingMovies"/>
         </LinearLayout>
-
+        <ImageView
+            android:id="@+id/switch_main_recycleview_layout_icon"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:src="@drawable/tb_icon_home_qrcode_normal"/>
     </RelativeLayout>
     <com.yalantis.phoenix.PullToRefreshView
         android:id="@+id/pull_to_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ListView
+        <!--<ListView
             android:id="@+id/movie_now_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"
-            android:dividerHeight="0dp" />
+            android:dividerHeight="0dp" />-->
+
+        <!--change listview to recycleview-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/movie_now_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             />
 
     </com.yalantis.phoenix.PullToRefreshView>
 </LinearLayout>

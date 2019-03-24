@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/imageView_movie_img"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:scaleType="fitXY"
+
+        />
+    <TextView
+        android:id="@+id/textView_movie_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="20sp"
+        android:textColor="@color/colorTheme"
+        android:text="驯龙高手3"
+        android:layout_below="@id/imageView_movie_img"/>
+
+    <TextView
+        android:id="@+id/textView_movie_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="动画 / 动作 / 冒险"
+        android:layout_alignBottom="@id/imageView_movie_img"
+        android:background="#fff"
+        android:alpha="0.7"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/imageView_movie_img"
+        android:layout_alignRight="@id/imageView_movie_img"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/movie_like_rate_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/cinema_icon_like_40"/>
+
+        <TextView
+            android:id="@+id/movie_like_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#fff"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+</RelativeLayout>

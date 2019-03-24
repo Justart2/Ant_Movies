@@ -8,6 +8,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.os.Handler;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +36,7 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import top.aezdd.www.adapter.LiveItemAdapter;
+import top.aezdd.www.adapter.MovieIndexAdapter;
 import top.aezdd.www.adapter.MoviesAdapter;
 import top.aezdd.www.adapter.MoviesGridAdapter;
 import top.aezdd.www.adapter.NowsAdapter;
@@ -47,7 +52,22 @@ import top.aezdd.www.utils.HttpUtil;
 import top.aezdd.www.utils.LoginUtil;
 import top.aezdd.www.view.CircleImageView;
 
-public class MainActivity extends Activity implements LiveFragment.LiveFragmentInterface, MovieListFragment.MovieListFragmentInterface, NowsFragment.NowsFragmentInterface, UserCoreFragment.UserFragmentInterface {
+public class MainActivity extends Activity implements LiveFragment.LiveFragmentInterface, MovieListFragment.MovieListFragmentInterface, NowsFragment.NowsFragmentInterface, UserCoreFragment.UserFragmentInterface,MovieIndexAdapter.OnItemCLickListener {
+
+    private final static String TAG = "MainActivity";
+    public final static int RECYCLE_LINEAR = 1;//线性布局
+    public final static int RECYCLE_GRID = 2;//网格布局
+    public final static int RECYCLE_STAG = 3;//瀑布流
+
+    public static int DEFAULT_LAYOUT_TYPE = RECYCLE_LINEAR;
+
+
+    public final static int MOVIE_SHOWING = 4;//正在上映标签
+    public final static int MOVIE_WILL_SHOWING = 5;//即将上映标签
+    public static int CURRENT_MOVIE_TYPE = MOVIE_SHOWING;//当前选中标签
+
+    RecyclerView recyclerView;
+
     private String tag = "now_movies_info";
     String url;
     private int page = 1;
@@ -73,7 +93,7 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
     PullToRefreshView mPullToRefreshView;
     TextView fragMovieShowName;
     private RequestQueue requestQueue;
-    private List<Movie> moviesList = new ArrayList<Movie>();
+    public static List<Movie> moviesList = new ArrayList<Movie>();
     private List<NowsEntity> nowsList = new ArrayList<NowsEntity>();
     private List<Map<String, String>> liveListData;
     private TextView movieCity;
@@ -133,9 +153,16 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
         willingButton.setBackgroundColor(0xFF888888);
         willingButton.setTextColor(0xFFFFFFFF);
         showingButton.setTextColor(0xFF555555);
+        CURRENT_MOVIE_TYPE = MOVIE_SHOWING;
         url = HttpUtil.HttpUrl + "/movies/now_movies_android.do";
         LoadData l = new LoadData();
-        moviesList = l.getMoviesListInternetData(MainActivity.this, movies_now_list, requestQueue, url, tag);
+        if(DEFAULT_LAYOUT_TYPE == RECYCLE_LINEAR){
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }else{
+            recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        }
+
+        l.getMoviesListInternetData(MainActivity.this,this, recyclerView, requestQueue, url, tag);
     }
 
     public void toWillingMovies(View v) {
@@ -143,9 +170,16 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
         showingButton.setBackgroundColor(0xFF888888);
         showingButton.setTextColor(0xFFFFFFFF);
         willingButton.setTextColor(0xFF555555);
+        CURRENT_MOVIE_TYPE = MOVIE_WILL_SHOWING;
         url = HttpUtil.HttpUrl + "/movies/will_movies_android.do";
+
+        if(DEFAULT_LAYOUT_TYPE == RECYCLE_LINEAR){
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }else{
+            recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        }
         LoadData l = new LoadData();
-        moviesList = l.getMoviesListInternetData(MainActivity.this, movies_now_list, requestQueue, url, tag);
+        l.getMoviesListInternetData(MainActivity.this,this, recyclerView, requestQueue, url, tag);
     }
 
     /*跳转选择城市Activity*/
@@ -190,6 +224,45 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
         fragmentManager.beginTransaction().replace(R.id.frame_layout_main, new UserCoreFragment(), "UserCoreFragment").commit();
     }
 
+    public void changeLayout() {
+        if (DEFAULT_LAYOUT_TYPE == RECYCLE_LINEAR) {
+            Log.d(TAG, "switch to recycle_linear");
+            switchLayoutType(RECYCLE_STAG);
+        } else {
+            Log.d(TAG, "switch to recycle_stag");
+            switchLayoutType(RECYCLE_LINEAR);
+        }
+    }
+
+    public void switchLayoutType(int switchCode) {
+        switch (switchCode) {
+            case RECYCLE_GRID:
+                //recyclerView.setAdapter(new MovieListAdapter(movieList,RECYCLE_GRID));
+                DEFAULT_LAYOUT_TYPE = RECYCLE_GRID;
+                break;
+            case RECYCLE_LINEAR:
+                DEFAULT_LAYOUT_TYPE = RECYCLE_LINEAR;
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                if (moviesList.size() > 0) {
+                    recyclerView.removeAllViews();
+                    recyclerView.swapAdapter(new MovieIndexAdapter(moviesList, RECYCLE_LINEAR).setOnClickListener(this), true);
+                }
+                //loadMoviesListData.getMoviesListInternetData(MainActivity.this,MainActivity.this, recyclerView, requestQueue, url, tag);
+                break;
+            case RECYCLE_STAG:
+                DEFAULT_LAYOUT_TYPE = RECYCLE_STAG;
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+                if (moviesList.size() > 0) {
+                    recyclerView.removeAllViews();
+                    recyclerView.swapAdapter(new MovieIndexAdapter(moviesList, RECYCLE_STAG).setOnClickListener(this), true);
+                }
+                //loadMoviesListData.getMoviesListInternetData(MainActivity.this,MainActivity.this, recyclerView, requestQueue, url, tag);
+                break;
+            default:
+                Log.d(TAG, "layout code error");
+
+        }
+    }
 
     /**
      * @实现Fragment方法
@@ -220,16 +293,39 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
         /*pull-refresh-listview-插件*/
         showingButton = (TextView) fragment.getView().findViewById(R.id.test_movie_showing);
         willingButton = (TextView) fragment.getView().findViewById(R.id.test_movie_willing);
-        movies_now_list = (ListView) fragment.getView().findViewById(R.id.movie_now_list);
+        //change listview to recycleview
+        //movies_now_list = (ListView) fragment.getView().findViewById(R.id.movie_now_list);
+        recyclerView = (RecyclerView) fragment.getView().findViewById(R.id.movie_now_recycle_view);
+        if(DEFAULT_LAYOUT_TYPE==RECYCLE_LINEAR){
+            recyclerView.setLayoutManager(new LinearLayoutManager(this)); //线性布局
+        }else{
+            recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)); //瀑布流
+        }
+
+
         //movies_now_grid = (GridView)fragment.getView().findViewById(R.id.movie_now_grid);
         loadMoviesListData = new LoadData();
-        if(moviesList.size()==0){
-            moviesList = loadMoviesListData.getMoviesListInternetData(MainActivity.this, movies_now_list, requestQueue, url, tag);
-            //moviesList = loadMoviesListData.getMoviesListInternetData(MainActivity.this, movies_now_grid, requestQueue, url, tag);
+
+        loadMoviesListData.getMoviesListInternetData(MainActivity.this,MainActivity.this, recyclerView, requestQueue, url, tag);
+
+
+        final ImageView switchLayoutBtn = (ImageView)fragment.getView().findViewById(R.id.switch_main_recycleview_layout_icon);
+        if(DEFAULT_LAYOUT_TYPE==RECYCLE_LINEAR){
+            switchLayoutBtn.setImageResource(R.drawable.tb_icon_navibar_default_right);
         }else{
-            movies_now_list.setAdapter(new MoviesAdapter(MainActivity.this,moviesList));
-            //movies_now_grid.setAdapter(new MoviesGridAdapter(MainActivity.this,moviesList));
+            switchLayoutBtn.setImageResource(R.drawable.tb_icon_home_qrcode_normal);
         }
+        switchLayoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(DEFAULT_LAYOUT_TYPE==RECYCLE_STAG){
+                    switchLayoutBtn.setImageResource(R.drawable.tb_icon_navibar_default_right);
+                }else{
+                    switchLayoutBtn.setImageResource(R.drawable.tb_icon_home_qrcode_normal);
+                }
+                changeLayout();
+            }
+        });
         mPullToRefreshView = (PullToRefreshView) fragment.getView().findViewById(R.id.pull_to_refresh);
         mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
@@ -238,7 +334,12 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
                     @Override
                     public void run() {
                         moviesList.removeAll(moviesList);
-                        moviesList = loadMoviesListData.getMoviesListInternetData(MainActivity.this, movies_now_list, requestQueue, url, tag);
+                        if(DEFAULT_LAYOUT_TYPE == RECYCLE_LINEAR){
+                            recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                        }else{
+                            recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+                        }
+                        loadMoviesListData.getMoviesListInternetData(MainActivity.this,MainActivity.this, recyclerView, requestQueue, url, tag);
                         //moviesList = loadMoviesListData.getMoviesListInternetData(MainActivity.this, movies_now_grid, requestQueue, url, tag);
                         mPullToRefreshView.setRefreshing(false);
                     }
@@ -247,7 +348,7 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
         });
         /*设置listview的item单机事件*/
         //movies_now_grid
-        movies_now_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*recyclerView.set.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent();
@@ -257,7 +358,7 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     /*首页直播fragment布局控件初始化和数据加载*/
@@ -422,8 +523,7 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
                     startActivity(intent);
                 } else {
                     LoginUtil.toLogin(MainActivity.this);
-                }
-            }
+                }           }
         });
 
         /*设置用户喜欢按钮点击事件*/
@@ -522,5 +622,14 @@ public class MainActivity extends Activity implements LiveFragment.LiveFragmentI
         }
         return super.onKeyDown(keyCode, event);
     }
-
+    //recycle view onItem click
+    @Override
+    public void onItemClick(List<Movie> moviesList, int position) {
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this, MovieDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("movie_info", moviesList.get(position));
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

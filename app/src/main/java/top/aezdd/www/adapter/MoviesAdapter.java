@@ -82,7 +82,7 @@ public class MoviesAdapter extends BaseAdapter {
         moviesViewHolder.getMovieRate().setText(moviesList.get(position).getmRate()+"% 人喜欢");
         moviesViewHolder.getMovieType().setText(moviesList.get(position).getmType());
         moviesViewHolder.getMovieVersion().setText(moviesList.get(position).getmVersion());
-        LoadImg.getMovieImage(moviesViewHolder.getMovieLogo(), HttpUtil.MOVIE_IMG_HTTP_URL + moviesList.get(position).getmPicture(), mContext);
+        LoadImg.getMovieImage(moviesViewHolder.getMovieLogo(), HttpUtil.MOVIE_LOGOG_IMG_HTTP_URL + moviesList.get(position).getmPicture(), mContext);
         moviesViewHolder.getMovieClickBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

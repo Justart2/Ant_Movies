@@ -8,12 +8,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -41,6 +44,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -341,7 +345,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    // 从本地相册选取图片作为头像
+    /*// 从本地相册选取图片作为头像
     private void choseHeadImageFromGallery() {
         //setUploadImgName();
         Intent intentFromGallery = new Intent();
@@ -408,27 +412,112 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
         super.onActivityResult(requestCode, resultCode, intent);
     }
 
+    */
+    // 从本地相册选取图片作为头像
+    private void choseHeadImageFromGallery() {
+        //setUploadImgName();
+        Intent intentFromGallery = new Intent();
+        // 设置文件类型
+        intentFromGallery.setType("image/*");
+        intentFromGallery.setAction(Intent.ACTION_PICK);
+        intentFromGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intentFromGallery, CODE_GALLERY_REQUEST);
+    }
+    Uri cameraUri = null;
+    // 启动手机相机拍摄照片作为头像
+    private void choseHeadImageFromCameraCapture() {
+        //setUploadImgName();
+        Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        File file = new File(Environment
+                .getExternalStorageDirectory(), imageFileName);
+
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            //注意需要跟provider中的authorities一行
+            cameraUri = FileProvider.getUriForFile(this, "com.aezdd.demo.provider", file);
+            intentFromCapture.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        } else {
+            cameraUri = Uri.fromFile(file);
+        }
+
+        //cameraUri = Uri.fromFile(file);
+        // 判断存储卡是否可用，存储照片文件
+
+        intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT,cameraUri);
+
+        startActivityForResult(intentFromCapture, CODE_CAMERA_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent intent) {
+
+        // 用户没有进行有效的设置操作，返回
+        if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(getApplication(), "取消", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        switch (requestCode) {
+            case CODE_GALLERY_REQUEST:
+                Log.e("ljz",intent.getData().toString());
+                cropRawPhoto(intent.getData());
+                //Toast.makeText(getApplication(), "去裁剪", Toast.LENGTH_LONG).show();
+                break;
+            case CODE_CAMERA_REQUEST:
+                cropRawPhoto(cameraUri);
+                break;
+            case CODE_RESULT_REQUEST:
+                if (intent != null) {
+                    setImageToHeadView(intent);
+                }else{
+                    Log.d("ljz","no app to crop");
+                }
+                break;
+        }
+
+        super.onActivityResult(requestCode, resultCode, intent);
+    }
+
     /**
      * 裁剪原始的图片
      */
-    public void cropRawPhoto(Uri uri) {
 
+
+    public void cropRawPhoto(Uri uri) {
+        Log.d("ljz","crop uri: " + uri.toString());
+        File tempFile = new File(
+                Environment.getExternalStorageDirectory(),
+                "temp.jpg");
+        if(tempFile.exists()){
+            tempFile.delete();
+        }else{
+            try {
+                tempFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
+        if(Build.VERSION.SDK_INT> Build.VERSION_CODES.M) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
+        }
         // 设置裁剪
         intent.putExtra("crop", "true");
 
         // aspectX , aspectY :宽高的比例
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(tempFile));
         // outputX , outputY : 裁剪图片宽高
         intent.putExtra("outputX", output_X);
         intent.putExtra("outputY", output_Y);
         intent.putExtra("outputFormat", "JPG");// 图片格式
-        intent.putExtra("noFaceDetection", true);// 取消人脸识别
-        intent.putExtra("return-data", true);
+        intent.putExtra("scale", true);
+        intent.putExtra("return-data", false);
+        intent.putExtra("noFaceDetection",true);
 
         startActivityForResult(intent, CODE_RESULT_REQUEST);
     }
@@ -437,10 +526,27 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
      * 提取保存裁剪之后的图片数据，并设置头像部分的View
      */
     private void setImageToHeadView(Intent intent) {
-        Bundle extras = intent.getExtras();
+        //Bundle extras = intent.getExtras();
+        if(intent.getData() !=null){
+            String imagePath = intent.getData().getEncodedPath();
+            Log.d("ljz","setImageToHeadView" + imagePath);
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            String filePath = OtherUtils.saveBitmap(this,bitmap);
+            Log.d("ljz","setImageToHeadView" + filePath);
+            pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("上传中····");
+            pDialog.setCancelable(false);
+            pDialog.show ();
+            uploadImgTOInternet(filePath);
+
+            userImgView.setImageBitmap(bitmap);
+        }
+
+        /*Log.d("ljz", extras + "");
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
-            Log.e("path---bitmap",photo.getConfig().toString());
+            Log.e("ljz",photo.getConfig().toString());
             String filePath = OtherUtils.saveBitmap(this,photo);
 
             pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
@@ -448,10 +554,10 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
             pDialog.setTitleText("上传中····");
             pDialog.setCancelable(false);
             pDialog.show ();
-           uploadImgTOInternet(filePath);
+            uploadImgTOInternet(filePath);
 
             userImgView.setImageBitmap(photo);
-        }
+        }*/
     }
 
     /**

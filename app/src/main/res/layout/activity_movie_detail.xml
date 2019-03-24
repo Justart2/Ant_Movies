@@ -302,28 +302,32 @@
                             android:layout_width="100dp"
                             android:layout_height="75dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_launcher" />
+                            android:scaleType="fitXY"
+                             />
 
                         <ImageView
                             android:id="@+id/image_movie_detail_photo2"
                             android:layout_width="100dp"
                             android:layout_height="75dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_launcher" />
+                            android:scaleType="fitXY"
+                             />
 
                         <ImageView
                             android:id="@+id/image_movie_detail_photo3"
                             android:layout_width="100dp"
                             android:layout_height="75dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_launcher" />
+                            android:scaleType="fitXY"
+                            />
 
                         <ImageView
                             android:id="@+id/image_movie_detail_photo4"
                             android:layout_width="100dp"
                             android:layout_height="75dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_launcher" />
+                            android:scaleType="fitXY"
+                             />
                     </LinearLayout>
                 </HorizontalScrollView>
 
